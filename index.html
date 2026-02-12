@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>游云网盘 · 校园朋友网络磁盘</title>
+    <!-- 游云特有字体：Inter + SF Pro 清新书卷气 -->
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------- 游云美学 · 干净如校园雨后 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9fafc 0%, #f0f2f5 100%);
+            color: #1e2a3a;
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== 游云标识 ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cloud-icon {
+            background: #3b6ea5;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 16px -6px rgba(59,110,165,0.25);
+            transition: 0.2s;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #1e2a3a;
+        }
+        .logo-text span {
+            font-weight: 350;
+            color: #5e6f7e;
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #4b6a88;
+            background: rgba(59,110,165,0.06);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 450;
+            border: 0.5px solid rgba(59,110,165,0.15);
+        }
+
+        /* ===== 卡片通用 ===== */
+        .page-content {
+            padding: 20px 0 60px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 650;
+            color: #0a2647;
+            margin-bottom: 6px;
+            line-height: 1.2;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .page-desc {
+            font-size: 18px;
+            color: #4a627a;
+            margin-bottom: 30px;
+            font-weight: 380;
+            border-left: 5px solid #3b6ea5;
+            padding-left: 18px;
+            background: linear-gradient(to right, transparent, #f0f4fa);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* 卡片毛玻璃 */
+        .github-config, .upload-section, .files-section {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 28px;
+            padding: 30px 32px;
+            box-shadow: 0 20px 35px -10px rgba(0,20,40,0.12);
+            margin-bottom: 40px;
+            transition: 0.25s;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1e3a5f;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: #3b6ea5;
+            font-size: 24px;
+        }
+
+        /* ---------- GitHub 配置区 ---------- */
+        .config-group {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .config-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1.5px solid rgba(0,0,0,0.04);
+            border-radius: 24px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .config-input:focus {
+            border-color: #3b6ea5;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(59,110,165,0.08);
+        }
+        .config-btn {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 8px;
+        }
+        .config-btn:hover {
+            background: #2b5580;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 18px -8px #1e3a5f40;
+        }
+        .config-info {
+            font-size: 0.85rem;
+            color: #4f6f8f;
+            background: rgba(210, 225, 240, 0.5);
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin-top: 12px;
+            border-left: 4px solid #3b6ea5;
+        }
+
+        /* ---------- 上传区 ---------- */
+        .upload-area {
+            border: 2.5px dashed #aac7e0;
+            border-radius: 24px;
+            padding: 44px 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: rgba(255,255,255,0.4);
+        }
+        .upload-area:hover {
+            border-color: #3b6ea5;
+            background: rgba(59,110,165,0.04);
+        }
+        .upload-area.dragover {
+            border-color: #1e4a76;
+            background: rgba(59,110,165,0.1);
+            border-style: solid;
+        }
+        .upload-icon {
+            font-size: 52px;
+            color: #3b6ea5;
+            margin-bottom: 16px;
+        }
+        .upload-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #1e2a3a;
+        }
+        .upload-hint {
+            font-size: 15px;
+            color: #5d737e;
+            margin-top: 10px;
+        }
+        .upload-btn {
+            padding: 14px 36px;
+            background: #3b6ea5;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.18s;
+            display: block;
+            margin: 20px auto 0;
+            box-shadow: 0 6px 14px rgba(59,110,165,0.3);
+            border: 0.5px solid rgba(255,255,255,0.3);
+        }
+        .upload-btn:hover:not(:disabled) {
+            background: #2c5580;
+            transform: scale(1.02);
+            box-shadow: 0 9px 18px rgba(44,85,128,0.35);
+        }
+        .upload-btn:disabled {
+            background: #b3c9e0;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* ---------- 文件列表 ---------- */
+        .file-list {
+            list-style: none;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: 0.15s;
+            border-radius: 16px;
+        }
+        .file-item:hover {
+            background: rgba(59,110,165,0.04);
+        }
+        .file-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            gap: 15px;
+        }
+        .file-icon {
+            font-size: 28px;
+            width: 40px;
+            text-align: center;
+            color: #3b6ea5;
+        }
+        .file-details {
+            flex: 1;
+        }
+        .file-name {
+            font-weight: 590;
+            color: #0a2647;
+            word-break: break-word;
+            font-size: 17px;
+        }
+        .file-meta {
+            font-size: 13.5px;
+            color: #5f7d95;
+            margin-top: 4px;
+        }
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .download-btn, .delete-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.15s;
+            color: white;
+        }
+        .download-btn {
+            background: #34a853;
+            box-shadow: 0 4px 10px rgba(52,168,83,0.2);
+        }
+        .download-btn:hover {
+            background: #2d9144;
+            transform: translateY(-1px);
+        }
+        .delete-btn {
+            background: #e55b4e;
+            box-shadow: 0 4px 10px rgba(229,91,78,0.18);
+        }
+        .delete-btn:hover {
+            background: #c44a3e;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 55px 20px;
+            color: #68869b;
+        }
+        .empty-icon {
+            font-size: 58px;
+            color: #b0d0e5;
+            margin-bottom: 20px;
+        }
+
+        /* ---------- 回到云端按钮（平滑滚动至顶部） ---------- */
+        .back-cloud {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59,110,165,0.25);
+            border-radius: 50px;
+            color: #1e3a5f;
+            font-size: 16px;
+            font-weight: 550;
+            text-decoration: none;
+            transition: 0.2s;
+            margin: 16px auto 0;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            width: fit-content;
+            cursor: pointer;
+        }
+        .back-cloud:hover {
+            background: white;
+            border-color: #3b6ea5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59,110,165,0.12);
+        }
+
+        /* ---------- 脚注 ---------- */
+        .footnote {
+            text-align: center;
+            margin-top: 40px;
+            color: #6a8fa0;
+            font-size: 14px;
+            border-top: 1px solid rgba(0,0,0,0.04);
+            padding-top: 30px;
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .github-config, .upload-section, .files-section {
+                padding: 22px 18px;
+            }
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .file-actions {
+                margin-top: 14px;
+                align-self: flex-end;
+            }
+        }
+
+        /* ---------- 🌩️ 密码保护层 · 游云风格 ---------- */
+        #password-protection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #f9fafc 0%, #e6ecf0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(12px);
+        }
+
+        .password-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 36px;
+            padding: 48px 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 50px -20px rgba(0,20,40,0.25);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .password-logo {
+            width: 70px;
+            height: 70px;
+            background: #3b6ea5;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 18px -6px rgba(59,110,165,0.3);
+        }
+        .password-logo i {
+            font-size: 36px;
+            color: white;
+        }
+
+        .password-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2647;
+            margin-bottom: 12px;
+        }
+        .password-sub {
+            color: #4f6f8f;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px 22px;
+            border: 1.5px solid rgba(0,0,0,0.06);
+            border-radius: 40px;
+            font-size: 18px;
+            background: white;
+            margin-bottom: 20px;
+            transition: 0.2s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .password-input:focus {
+            border-color: #3b6ea5;
+            box-shadow: 0 0 0 4px rgba(59,110,165,0.1);
+            outline: none;
+        }
+
+        .password-btn {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .password-btn:hover {
+            background: #2b5580;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 18px -6px #1e3a5f70;
+        }
+
+        .password-hint {
+            margin-top: 24px;
+            color: #6a8fa0;
+            font-size: 14px;
+            border-top: 1px solid rgba(0,0,0,0.04);
+            padding-top: 20px;
+        }
+
+        /* 主应用初始隐藏，密码验证后显示 */
+        #app {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 🌩️ 密码保护层 -->
+    <div id="password-protection">
+        <div class="password-card">
+            <div class="password-logo">
+                <i class="fas fa-cloud"></i>
+            </div>
+            <div class="password-title">游云网盘</div>
+            <div class="password-sub">朋友，请输入访问密码</div>
+            <input type="password" class="password-input" id="password-input" placeholder="🔒 密码" autofocus>
+            <button class="password-btn" id="submit-password">
+                <i class="fas fa-cloud-upload-alt"></i> 进入云端
+            </button>
+            <div class="password-hint">
+                <i class="fas fa-shield-alt"></i> 静态密码 · 仅内部朋友可见
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌥️ 主应用：游云网盘完整界面，初始隐藏 -->
+    <div id="app">
+        <div class="container">
+            <!-- 游云导航 -->
+            <div class="navbar">
+                <div class="logo-area">
+                    <div class="cloud-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="logo-text">
+                        游云网盘<span>· 校园</span>
+                    </div>
+                </div>
+                <div class="tagline">
+                    <i class="fas fa-users" style="margin-right: 6px;"></i> 一个普通的校园朋友网络磁盘仓库
+                </div>
+            </div>
+
+            <section class="page-content">
+                <h1 class="page-title">
+                    游云网盘
+                    <span style="font-size: 18px; font-weight: 400; color: #4f6f8f;">存下我们的琐碎与光亮</span>
+                </h1>
+                <div class="page-desc">
+                    <i class="fas fa-graduation-cap" style="margin-right: 10px;"></i> 校园伙伴共享空间 · 直连GitHub仓库 · 仅此设备存储令牌
+                </div>
+
+                <!-- GitHub 配置卡片（已预填仓库信息） -->
+                <div class="github-config" id="github-config-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-key"></i> ① 连接存储仓库
+                    </h2>
+                    <div class="config-group">
+                        <!-- 预填您的 GitHub 用户名和仓库名，令牌需您自行填写 -->
+                        <input type="text" class="config-input" id="repo-owner" placeholder="GitHub 用户名 / 组织" value="Xyq667" autocomplete="off">
+                        <input type="text" class="config-input" id="repo-name" placeholder="仓库名称 (如 YounCloud-Warehouse)" value="YounCloud-Warehouse">
+                        <input type="password" class="config-input" id="github-token" placeholder="个人访问令牌 · 需 repo 权限">
+                        <button class="config-btn" id="save-config">
+                            <i class="fas fa-plug"></i> 挂载仓库
+                        </button>
+                        <div class="config-info">
+                            <i class="fas fa-shield-alt"></i> 令牌仅存于本地浏览器，用于直连 GitHub API。需要 <strong>repo</strong> 完整权限。<br>
+                            可在 GitHub Settings → Developer settings → Personal access tokens → Tokens (classic) 生成。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上传卡片（配置成功后显示） -->
+                <div class="upload-section" id="upload-card" style="display: none;">
+                    <h2 class="section-title">
+                        <i class="fas fa-upload"></i> ② 上传到游云仓库
+                    </h2>
+                    <div class="upload-area" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">轻触选择文件，或拖拽至此</p>
+                        <p class="upload-hint">支持任何格式 · GitHub 单文件 ≤ 100MB · 朋友放心传</p>
+                    </div>
+                    <input type="file" class="file-input" id="file-input" multiple style="display: none;">
+                    <button class="upload-btn" id="upload-btn" disabled>
+                        <i class="fas fa-arrow-up"></i> 上传到游云
+                    </button>
+                </div>
+
+                <!-- 文件列表卡片 -->
+                <div class="files-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-archive"></i> ③ 游云仓库 · 随取随用
+                    </h2>
+                    <ul class="file-list" id="file-list">
+                        <li class="empty-state">
+                            <i class="fas fa-cloud-sun empty-icon"></i>
+                            <p style="font-size: 18px; margin-bottom: 8px;">游云还空空的</p>
+                            <p style="color: #7999ae;">配置仓库后即可上传分享</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 回到云端按钮（平滑滚动至顶部） -->
+                <div style="display: flex; justify-content: center;">
+                    <a href="#" class="back-cloud" id="back-to-cloud">
+                        <i class="fas fa-chevron-up"></i> 回到云端
+                    </a>
+                </div>
+
+                <!-- 游云脚注 -->
+                <div class="footnote">
+                    <i class="fas fa-cloud-moon"></i> 游云 · 当年星梦化作春雨，我们在这里重逢 · <span id="dynamic-year"></span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // ---------- 🔐 密码验证 ----------
+            const PASSWORD = '114514667';  // 静态密码
+            const passwordProtection = document.getElementById('password-protection');
+            const app = document.getElementById('app');
+            const passwordInput = document.getElementById('password-input');
+            const submitPassword = document.getElementById('submit-password');
+
+            // 检查是否已认证（sessionStorage）
+            function checkAuthAndShow() {
+                if (sessionStorage.getItem('youyun_auth') === 'true') {
+                    passwordProtection.style.display = 'none';
+                    app.style.display = 'block';
+                    initializeApp(); // 启动游云核心
+                } else {
+                    passwordProtection.style.display = 'flex';
+                    app.style.display = 'none';
+                }
+            }
+
+            // 验证密码
+            function verifyPassword() {
+                const pwd = passwordInput.value.trim();
+                if (pwd === PASSWORD) {
+                    sessionStorage.setItem('youyun_auth', 'true');
+                    passwordProtection.style.display = 'none';
+                    app.style.display = 'block';
+                    initializeApp();
+                } else {
+                    alert('密码错误，请重新输入。');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+
+            submitPassword.addEventListener('click', verifyPassword);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    verifyPassword();
+                }
+            });
+
+            // ---------- 🌥️ 游云网盘 · GitHub 核心驱动 (与原逻辑完全一致) ----------
+            const GITHUB_CONFIG_KEY = 'youyun_github_config';
+            const STORAGE_PATH = 'files';  // 仓库下 files/ 目录
+
+            // DOM 元素（游云核心）
+            let configCard, uploadCard, fileListEl, repoOwnerInput, repoNameInput, tokenInput, saveConfigBtn;
+            let uploadArea, fileInput, uploadBtn, backBtn;
+
+            // GitHub 配置状态
+            let githubConfig = {
+                repoOwner: '',
+                repoName: '',
+                githubToken: ''
+            };
+
+            function initializeApp() {
+                // 重新获取DOM引用（确保在app显示后）
+                configCard = document.getElementById('github-config-card');
+                uploadCard = document.getElementById('upload-card');
+                fileListEl = document.getElementById('file-list');
+                repoOwnerInput = document.getElementById('repo-owner');
+                repoNameInput = document.getElementById('repo-name');
+                tokenInput = document.getElementById('github-token');
+                saveConfigBtn = document.getElementById('save-config');
+                uploadArea = document.getElementById('upload-area');
+                fileInput = document.getElementById('file-input');
+                uploadBtn = document.getElementById('upload-btn');
+                backBtn = document.getElementById('back-to-cloud');
+
+                // 初始化配置
+                init();
+
+                // 回到云端按钮事件
+                if (backBtn) {
+                    backBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+
+                // 保存配置
+                saveConfigBtn.addEventListener('click', saveConfiguration);
+
+                // 上传区域交互
+                uploadArea.addEventListener('click', () => fileInput.click());
+
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+                uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+                });
+
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length) handleFiles(this.files);
+                });
+
+                // 脚注年份
+                document.getElementById('dynamic-year').innerText = new Date().getFullYear() + ' © 游云';
+            }
+
+            // ---------- 以下为游云核心函数，与原版完全一致 ----------
+            function init() {
+                const stored = localStorage.getItem(GITHUB_CONFIG_KEY);
+                if (stored) {
+                    try {
+                        githubConfig = JSON.parse(stored);
+                        if (githubConfig.repoOwner && githubConfig.repoName && githubConfig.githubToken) {
+                            repoOwnerInput.value = githubConfig.repoOwner || '';
+                            repoNameInput.value = githubConfig.repoName || '';
+                            tokenInput.value = githubConfig.githubToken || '';
+                            configCard.style.display = 'none';
+                            uploadCard.style.display = 'block';
+                            loadFileList();
+                            return;
+                        }
+                    } catch (e) {}
+                }
+                configCard.style.display = 'block';
+                uploadCard.style.display = 'none';
+                githubConfig = {
+                    repoOwner: repoOwnerInput.value.trim(),
+                    repoName: repoNameInput.value.trim(),
+                    githubToken: ''
+                };
+            }
+
+            function showConfigCard() {
+                configCard.style.display = 'block';
+                uploadCard.style.display = 'none';
+                githubConfig = { repoOwner: repoOwnerInput.value.trim(), repoName: repoNameInput.value.trim(), githubToken: '' };
+            }
+
+            function saveConfiguration() {
+                const owner = repoOwnerInput.value.trim();
+                const repo = repoNameInput.value.trim();
+                const token = tokenInput.value.trim();
+
+                if (!owner || !repo || !token) {
+                    alert('请完整填写 GitHub 用户名、仓库名和个人访问令牌。');
+                    return;
+                }
+
+                githubConfig = { repoOwner: owner, repoName: repo, githubToken: token };
+                localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(githubConfig));
+
+                configCard.style.display = 'none';
+                uploadCard.style.display = 'block';
+                loadFileList();
+            }
+
+            function getHeaders() {
+                return {
+                    'Authorization': `token ${githubConfig.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                };
+            }
+
+            async function loadFileList() {
+                if (!githubConfig.repoOwner || !githubConfig.repoName) return;
+
+                try {
+                    const url = `https://api.github.com/repos/${githubConfig.repoOwner}/${githubConfig.repoName}/contents/${STORAGE_PATH}`;
+                    const response = await fetch(url, { headers: getHeaders() });
+
+                    if (response.status === 404) {
+                        renderFileList([]);
+                        return;
+                    }
+                    if (!response.ok) {
+                        throw new Error(`无法获取文件列表 (${response.status})`);
+                    }
+
+                    const data = await response.json();
+                    const files = Array.isArray(data) ? data.filter(item => item.type === 'file') : [];
+                    renderFileList(files);
+                } catch (error) {
+                    console.error('加载文件失败:', error);
+                    renderFileList([]);
+                    if (error.message.includes('401') || error.message.includes('403')) {
+                        alert('令牌无效或权限不足，请重新配置。');
+                    }
+                }
+            }
+
+            function renderFileList(files) {
+                if (!files || files.length === 0) {
+                    fileListEl.innerHTML = `
+                        <li class="empty-state">
+                            <i class="fas fa-cloud-upload-alt empty-icon"></i>
+                            <p style="font-size: 18px; margin-bottom: 8px;">📁 仓库还没有文件</p>
+                            <p style="color: #7999ae;">上传第一个文件，和朋友分享</p>
+                        </li>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                files.forEach(file => {
+                    const iconClass = getFileIcon(file.name);
+                    const sizeFormatted = formatFileSize(file.size);
+                    html += `
+                        <li class="file-item">
+                            <div class="file-info">
+                                <div class="file-icon"><i class="${iconClass}"></i></div>
+                                <div class="file-details">
+                                    <div class="file-name">${escapeHTML(file.name)}</div>
+                                    <div class="file-meta">${sizeFormatted}</div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="download-btn" data-url="${file.download_url}" data-name="${escapeHTML(file.name)}">
+                                    <i class="fas fa-download"></i> 下载
+                                </button>
+                                <button class="delete-btn" data-path="${file.path}" data-sha="${file.sha}" data-name="${escapeHTML(file.name)}">
+                                    <i class="fas fa-trash-alt"></i> 删除
+                                </button>
+                            </div>
+                        </li>
+                    `;
+                });
+
+                fileListEl.innerHTML = html;
+
+                document.querySelectorAll('.download-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const url = btn.getAttribute('data-url');
+                        if (url) window.open(url, '_blank');
+                    });
+                });
+
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const path = btn.getAttribute('data-path');
+                        const sha = btn.getAttribute('data-sha');
+                        const name = btn.getAttribute('data-name');
+                        deleteFile(path, sha, name);
+                    });
+                });
+            }
+
+            async function deleteFile(path, sha, fileName) {
+                if (!confirm(`确定将「${fileName}」从游云仓库永久删除吗？`)) return;
+
+                try {
+                    const url = `https://api.github.com/repos/${githubConfig.repoOwner}/${githubConfig.repoName}/contents/${path}`;
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                        headers: getHeaders(),
+                        body: JSON.stringify({
+                            message: `[游云] 删除文件 ${fileName}`,
+                            sha: sha
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('删除失败');
+                    alert(`✅ 文件「${fileName}」已删除`);
+                    loadFileList();
+                } catch (error) {
+                    console.error(error);
+                    alert('删除失败: ' + (error.message || '未知错误'));
+                }
+            }
+
+            async function uploadFilesToGitHub(filesToUpload) {
+                if (!filesToUpload || filesToUpload.length === 0) return;
+
+                uploadBtn.disabled = true;
+                uploadBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> 上传中...';
+
+                let successCount = 0;
+                for (let i = 0; i < filesToUpload.length; i++) {
+                    try {
+                        const file = filesToUpload[i];
+                        await uploadSingleFile(file);
+                        successCount++;
+                    } catch (err) {
+                        console.error(`上传失败: ${filesToUpload[i].name}`, err);
+                        alert(`文件 ${filesToUpload[i].name} 上传失败: ${err.message}`);
+                    }
+                }
+
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = '<i class="fas fa-arrow-up"></i> 上传到游云';
+
+                if (successCount > 0) {
+                    alert(`✨ 成功上传 ${successCount} 个文件到仓库`);
+                    fileInput.value = '';
+                    loadFileList();
+                }
+            }
+
+            async function uploadSingleFile(file) {
+                const MAX_SIZE = 100 * 1024 * 1024;
+                if (file.size > MAX_SIZE) {
+                    throw new Error(`文件大小超过 100MB 限制`);
+                }
+
+                const base64 = await readFileAsBase64(file);
+                const contentBase64 = base64.split(',')[1];
+                const fileName = file.name;
+                const apiUrl = `https://api.github.com/repos/${githubConfig.repoOwner}/${githubConfig.repoName}/contents/${STORAGE_PATH}/${fileName}`;
+
+                let sha = null;
+                try {
+                    const existResp = await fetch(apiUrl, { headers: getHeaders() });
+                    if (existResp.ok) {
+                        const existData = await existResp.json();
+                        sha = existData.sha;
+                    }
+                } catch (e) { }
+
+                const body = {
+                    message: sha ? `[游云] 更新 ${fileName}` : `[游云] 新增 ${fileName}`,
+                    content: contentBase64
+                };
+                if (sha) body.sha = sha;
+
+                const response = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: getHeaders(),
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    throw new Error(err.message || `HTTP ${response.status}`);
+                }
+                return await response.json();
+            }
+
+            function readFileAsBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve(e.target.result);
+                    reader.onerror = e => reject(new Error('读取文件失败'));
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function getFileIcon(filename) {
+                const ext = filename.split('.').pop().toLowerCase();
+                const map = {
+                    pdf: 'fa-file-pdf', doc: 'fa-file-word', docx: 'fa-file-word',
+                    xls: 'fa-file-excel', xlsx: 'fa-file-excel', ppt: 'fa-file-powerpoint', pptx: 'fa-file-powerpoint',
+                    zip: 'fa-file-archive', rar: 'fa-file-archive', '7z': 'fa-file-archive',
+                    jpg: 'fa-file-image', jpeg: 'fa-file-image', png: 'fa-file-image', gif: 'fa-file-image', webp: 'fa-file-image',
+                    mp3: 'fa-file-audio', wav: 'fa-file-audio', mp4: 'fa-file-video', avi: 'fa-file-video',
+                    txt: 'fa-file-alt', js: 'fa-file-code', html: 'fa-file-code', css: 'fa-file-code', json: 'fa-file-code',
+                    md: 'fa-file-alt', py: 'fa-file-code', java: 'fa-file-code', cpp: 'fa-file-code'
+                };
+                return `fas ${map[ext] || 'fa-file'}`;
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024;
+                const units = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + units[i];
+            }
+
+            function escapeHTML(str) {
+                return String(str).replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            function handleFiles(selectedFiles) {
+                const MAX_SIZE = 100 * 1024 * 1024;
+                const valid = [];
+                for (let f of selectedFiles) {
+                    if (f.size > MAX_SIZE) {
+                        alert(`「${f.name}」大小为 ${(f.size / (1024*1024)).toFixed(2)}MB，超过 100MB 限制。`);
+                    } else {
+                        valid.push(f);
+                    }
+                }
+                if (valid.length > 0) {
+                    uploadBtn.disabled = false;
+                    uploadBtn.onclick = function() {
+                        uploadFilesToGitHub(valid);
+                    };
+                } else {
+                    uploadBtn.disabled = true;
+                    uploadBtn.onclick = null;
+                }
+            }
+
+            // ---------- 页面加载：先检查认证，再决定是否初始化 ----------
+            checkAuthAndShow();
+        })();
+    </script>
+</body>
+</html>
